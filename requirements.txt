@@ -1,0 +1,9 @@
+# Code analysis
+flake8
+pylint
+
+# Code style
+black
+
+# Unit test and coverage
+coverage
