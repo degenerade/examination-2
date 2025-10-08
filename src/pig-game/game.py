@@ -1,5 +1,3 @@
-import dice
-
 
 class Game:
 

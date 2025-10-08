@@ -1,8 +1,10 @@
-
+"""dice module, contains the Dice class"""
 import random
 
 
 class Dice:
+    """Dice class, contains roll_die, set_sides, get_rolls_made,
+    get_sum_of_all_rolls"""
     sides = 6
 
     def __init__(self):
@@ -24,7 +26,9 @@ class Dice:
         return roll
 
     def get_rolls_made(self):
+        """Return the total amount of rolls the dice has made"""
         return self.rolls_made
 
     def get_sum_of_all_rolls(self):
+        """Return the sum of all rolls"""
         return self.sum_of_all_rolls
