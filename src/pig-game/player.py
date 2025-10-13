@@ -1,7 +1,6 @@
-from typing import Optional
 
 class Player:
-    
+
     def __init__(self, name: str, is_ai: bool = False):
         self.name = name
         self.total_score = 0
@@ -23,4 +22,5 @@ class Player:
         self.turn_score = 0
 
     def __repr__(self):
-        return f"Player(name={self.name!r}, total={self.total_score}, turn={self.turn_score}, ai={self.is_ai})"
+        return f"""Player(name={self.name!r}, total={self.total_score},
+                    turn={self.turn_score}, ai={self.is_ai})"""
