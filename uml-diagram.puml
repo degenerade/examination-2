@@ -1,0 +1,10 @@
+@startuml test
+class Game
+class DiceHand
+class Dice
+class HighScore
+class Histogram
+class Player
+Game --> Dice
+interface Intelligence
+@enduml
