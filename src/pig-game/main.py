@@ -1,15 +1,18 @@
-import dice
+from .dicehand import DiceHand
+from .game import Game
 
 
-def main():
-    die = dice.Dice()
-    die.set_sides(int(input("How many faces will the dice have?\n>>> ")))
-    num_rolls = int(input("How many rolls do you want to make?\n>>> "))
-    for i in range(1, num_rolls+1):
-        print(f"Roll {i}: {die.roll_die()}")
-    print(f"\nTotal rolls made: {die.get_rolls_made()}")
-    print(f"Sum of all rolls made: {die.get_sum_of_all_rolls()}")
+class Main:
+    """Entry point to construct game and start it, matching original behaviour."""
+    @staticmethod
+    def run():
+        dicehand = DiceHand(count=1, sides=6)
+        game = Game(dicehand=dicehand, max_score=100)
+        game.choose_players()
+        game.run()
 
 
-if __name__ == '__main__':
-    main()
+
+
+if __name__ == "__main__":
+    Main.run()
