@@ -1,10 +1,12 @@
 """dice module, contains the Dice class"""
+
 import random
 
 
 class Dice:
     """Dice class, contains roll_die, set_sides, get_rolls_made,
     get_sum_of_all_rolls"""
+
     sides = 6
 
     def __init__(self):
