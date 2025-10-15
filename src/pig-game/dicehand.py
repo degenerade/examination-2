@@ -1,4 +1,4 @@
-from .dice import Dice
+from dice import Dice
 
 
 class DiceHand:
@@ -8,5 +8,5 @@ class DiceHand:
         self.dice = [Dice(sides) for _ in range(count)]
 
 
-def roll_one(self) -> int:
-    return self.dice[0].roll()
+    def roll_one(self) -> int:
+        return self.dice[0].roll()

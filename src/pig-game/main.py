@@ -1,5 +1,5 @@
-from .dicehand import DiceHand
-from .game import Game
+from dicehand import DiceHand
+from game import Game
 
 
 class Main:

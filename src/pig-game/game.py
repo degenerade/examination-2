@@ -1,5 +1,5 @@
-from .dicehand import DiceHand
-from .player import Player
+from dicehand import DiceHand
+from player import Player
 
 class Game:
     """
@@ -64,7 +64,7 @@ class Game:
                 print(f"Player {player.index}'s total score is {player.score}.")
 
 
-        # check for end condition to avoid extra turns after someone wins
+                # check for end condition to avoid extra turns after someone wins
                 if max(p.score for p in self.players) >= self.max_score:
                     break
 
