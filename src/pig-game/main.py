@@ -3,7 +3,7 @@ from .game import Game
 
 
 class Main:
-    """Entry point to construct game and start it, matching original behaviour."""
+    """Entry point to construct game and start it."""
     @staticmethod
     def run():
         dicehand = DiceHand(count=1, sides=6)
