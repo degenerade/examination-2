@@ -29,3 +29,5 @@ On Linux/Mac:
    python -m pip install -r requirements.txt
    ```
 
+ReadTheDocs link:
+https://examination-2.readthedocs.io/en/latest/
