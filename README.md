@@ -4,7 +4,7 @@ Pig dice game, player vs computer, in Python.
 
 ----------------
 
-### __To create and activate the python virtual enviroment:__
+### __To create and activate the Python virtual enviroment:__
 
 
 On Windows with bash terminal:
