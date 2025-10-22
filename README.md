@@ -1,6 +1,6 @@
 # Repository for Examination 2 by Group 42
 
-Pig dice game, player vs computer, in python.
+Pig dice game, player vs computer, in Python.
 
 ----------------
 
