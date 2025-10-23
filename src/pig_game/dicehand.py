@@ -1,5 +1,4 @@
-
-from dice import Dice
+from .dice import Dice
 
 
 class DiceHand:
@@ -15,7 +14,6 @@ class DiceHand:
         self.previous_roll = [die.roll_die() for die in self.dice]
         self.history.append(self.previous_roll.copy())
         return sum(self.previous_roll)
-            
 
     def reset_history(self):
         self.history.clear()

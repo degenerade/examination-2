@@ -2,9 +2,10 @@
 
 from typing import Optional
 
+
 class Player:
-    
-    def __init__(self, name: str, is_ai: bool = False, intelligence = None):
+
+    def __init__(self, name: str, is_ai: bool = False, intelligence=None):
         """just declaring vars"""
         self.name = name
         self.total_score = 0
@@ -32,4 +33,3 @@ class Player:
 
     def __repr__(self):
         return f"Player(name={self.name!r}, total={self.total_score}, turn={self.turn_score}, ai={self.is_ai})"
-    
