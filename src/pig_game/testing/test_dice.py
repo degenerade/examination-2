@@ -16,7 +16,7 @@ class TestDiceClass(unittest.TestCase):
         exp = 6
         self.assertEqual(res, exp)
 
-    def testRollDice(self):
+    def test_roll_die(self):
         """Roll a dice and check its value is in bounds"""
         die = dice.Dice()
 
