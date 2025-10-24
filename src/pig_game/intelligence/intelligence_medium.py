@@ -7,11 +7,8 @@ class MediumIntelligence(Intelligence):
     """this class allows for better Pig play."""
 
     def decide_action(self, player: Player, game: Game, dicehand):
-
         opponents = [p for p in game.players if p != player]
-        highest_opponent_score = max(
-            (p.total_score for p in opponents), default=0
-        )
+        highest_opponent_score = max((p.total_score for p in opponents), default=0)
 
         remain = game.WINNING_SCORE - player.total_score
 

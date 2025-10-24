@@ -4,7 +4,6 @@ from .highscore import HighScore
 
 
 class Main:
-
     @staticmethod
     def run():
         try:

@@ -1,4 +1,3 @@
-
 import unittest
 from ..game import Game
 from ..player import Player
@@ -6,8 +5,8 @@ from ..dicehand import DiceHand
 from ..dice import Dice
 from ..intelligence.intelligence_human import HumanIntelligence
 
+
 class TestGameClass(unittest.TestCase):
-    
     def setUp(self):
         p1 = Player("BOB", intelligence=HumanIntelligence)
         p2 = Player("MARLEY", intelligence=HumanIntelligence)
@@ -22,6 +21,7 @@ class TestGameClass(unittest.TestCase):
 
     def test_game_starts_not_over(self):
         self.assertFalse(self.game.game_over)
+
 
 if __name__ == "__main__":
     unittest.main()

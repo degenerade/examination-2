@@ -4,7 +4,6 @@ from typing import Optional
 
 
 class Player:
-
     def __init__(self, name: str, is_ai: bool = False, intelligence=None):
         """just declaring vars"""
         self.name = name

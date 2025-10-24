@@ -37,9 +37,7 @@ class Game:
         player = self.current_player()
         print(f"\n\n--->{player.name}'s turn!")
         if player.intelligence is None:
-            raise ValueError(
-                f"Player {player.name} does not have a strategy assigned."
-            )
+            raise ValueError(f"Player {player.name} does not have a strategy assigned.")
 
         while True:
             choice = player.intelligence.decide_action(player, self, self.dice_hand)
