@@ -19,11 +19,7 @@ class Game:
         self.game_over = False
 
     def current_player(self) -> Player:
-        """returns the current player object
-
-        Returns:
-            Player: current player
-        """
+        """returns the current player object"""
         return self.players[self.current_player_index]
 
     def switch_turn(self):
@@ -40,7 +36,17 @@ class Game:
             raise ValueError(f"Player {player.name} does not have a strategy assigned.")
 
         while True:
-            choice = player.intelligence.decide_action(player, self, self.dice_hand)
+            choice = player.intelligence.decide_action(player, self, self.dice_hand).strip().lower()
+            
+            if choice == "q":
+                print("\nYou ended the game early. Returning to menu...")
+                self.game_over = True
+                return
+
+            if choice == "+":
+                player.total_score += 10
+                print(f"Added 10 points... Cheater... Total score: {player.total_score}")
+                continue
 
             if choice == "r":
                 roll = self.dice_hand.get_roll()
@@ -54,7 +60,7 @@ class Game:
                     break
                 else:
                     player.add_turn_points(roll)
-                    print(f"Turn total: {player.total_score}")
+                    print(f"Turn total: {player.turn_score}")
 
             elif choice == "h":
                 player.bank_turn()
@@ -70,6 +76,9 @@ class Game:
         """main loop to play game"""
         while not self.game_over:
             self.take_turn()
+        
+        if not self.game_over or all(p.total_score < self.WINNING_SCORE for p in self.players):
+            print("\nGame ended without a winner :(.)")
         self._display_histogram()
         self._display_highscores()
 
