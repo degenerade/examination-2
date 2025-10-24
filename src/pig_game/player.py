@@ -31,4 +31,5 @@ class Player:
         self.turn_score = 0
 
     def __repr__(self):
+        """Return a compact representation including name and scores."""
         return f"Player(name={self.name!r}, total={self.total_score}, turn={self.turn_score}, ai={self.is_ai})"

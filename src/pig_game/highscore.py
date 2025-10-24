@@ -19,6 +19,10 @@ class HighScore:
     # persistence helpers
     # ------------------------------------------------------------------
     def _read(self) -> Dict[str, List[Dict]]:
+        """Read highscore data from the JSON file and normalize it.
+
+        Returns a dict with a 'players' list even when file is missing or invalid.
+        """
         if not os.path.exists(self.path):
             return {"players": []}
         try:
@@ -29,9 +33,14 @@ class HighScore:
         return self._normalize(stored)
 
     def _write(self) -> None:
+        """Write current highscore data back to the JSON file.
+
+        Creates directories as needed.
+        """
         os.makedirs(os.path.dirname(self.path), exist_ok=True)
         with open(self.path, "w", encoding="utf-8") as fh:
             json.dump(self.data, fh, indent=2)
+
 
     # ------------------------------------------------------------------
     # public API
@@ -87,6 +96,7 @@ class HighScore:
     # helpers
     # ------------------------------------------------------------------
     def _normalize(self, stored) -> Dict[str, List[Dict]]:
+        """Normalize legacy or current stored representations into a players list."""
         players = []
         if isinstance(stored, dict) and "players" in stored:
             for entry in stored["players"]:
@@ -119,6 +129,7 @@ class HighScore:
         return {"players": players}
 
     def _build_entry(self, name: str, base: Optional[Dict] = None) -> Dict:
+        """Construct a consistent player entry dict from a base mapping."""
         name = name.strip() or "unknown"
         entry = {
             "display_name": name,
@@ -137,6 +148,7 @@ class HighScore:
         return entry
 
     def _get_or_create(self, name: str) -> Dict:
+        """Return existing player entry by name or create a new one."""
         entry = self._find_by_alias(name)
         if entry is None:
             entry = self._build_entry(name)
@@ -144,6 +156,7 @@ class HighScore:
         return entry
 
     def _find_by_alias(self, name: str) -> Optional[Dict]:
+        """Find a player entry by any known alias (normalized)."""
         norm = self._normalize_name(name)
         for entry in self.data["players"]:
             if norm in entry.get("aliases", []):
@@ -151,6 +164,7 @@ class HighScore:
         return None
 
     def _add_alias(self, entry: Dict, name: str) -> None:
+        """Add a normalized alias to a player's alias list (de-duplicated)."""
         norm = self._normalize_name(name)
         aliases = entry.setdefault("aliases", [])
         if norm and norm not in aliases:
@@ -158,4 +172,5 @@ class HighScore:
 
     @staticmethod
     def _normalize_name(name: str) -> str:
+        """Normalize a name for alias matching (strip and lowercase)."""
         return str(name).strip().lower()

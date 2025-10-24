@@ -1,3 +1,5 @@
+"""Medium-difficulty AI using a simple heuristic to decide actions."""
+
 from .intelligence import Intelligence
 from ..game import Game
 from ..player import Player
@@ -7,6 +9,10 @@ class MediumIntelligence(Intelligence):
     """this class allows for better Pig play."""
 
     def decide_action(self, player: Player, game: Game, dicehand):
+        """Decide whether to roll or hold using a simple heuristic.
+
+        Returns 'r' to roll or 'h' to hold.
+        """
         opponents = [p for p in game.players if p != player]
         highest_opponent_score = max((p.total_score for p in opponents), default=0)
 

@@ -1,3 +1,5 @@
+"""Human-player intelligence: prompt the user for actions."""
+
 from .intelligence import Intelligence
 
 
@@ -5,6 +7,9 @@ class HumanIntelligence(Intelligence):
     """Handles input from human player"""
 
     def decide_action(self, player, game, dicehand):
+        """Prompt the human player and validate input.
+
+        Returns one of 'r', 'h', 'q', or '+'."""
         while True:
             choice = input(f"{player.name}, Roll, Hold, or Quit? (r/h/q):\n>>> ").lower()
             if choice in ["r", "h", "q", "+"]:

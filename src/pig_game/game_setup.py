@@ -1,3 +1,5 @@
+"""Helpers to interactively build game setup (players and dice)."""
+
 from .dice import Dice
 from .dicehand import DiceHand
 from .player import Player

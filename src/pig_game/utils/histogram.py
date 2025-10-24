@@ -19,10 +19,12 @@ class Histogram:
         self.total = 0
 
     def add(self, value: int) -> None:
+        """Record a single integer roll value in the histogram."""
         self.counter[value] += 1
         self.total += 1
 
     def add_many(self, values: Iterable[int]) -> None:
+        """Add multiple roll values to the histogram from an iterable."""
         for v in values:
             self.add(v)
 
@@ -33,8 +35,10 @@ class Histogram:
         return {k: v / self.total for k, v in sorted(self.counter.items())}
 
     def most_common(self, n: int = 5):
+        """Return the n most common values from the histogram."""
         return self.counter.most_common(n)
 
     def reset(self) -> None:
+        """Clear the histogram data and reset counters."""
         self.counter.clear()
         self.total = 0

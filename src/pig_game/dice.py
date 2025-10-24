@@ -20,6 +20,10 @@ class Dice:
 
     @staticmethod
     def _validate_sides(sides: int) -> None:
+        """Validate sides is an integer >= 2.
+
+        Raises TypeError or ValueError on bad input.
+        """
         if not isinstance(sides, int):
             raise TypeError("Number of sides must be an integer.")
         if sides < 2:

@@ -5,9 +5,10 @@ from .highscore import HighScore
 from .rules import RULES_TEXT
 
 class Menu:
-    """class that will loop the menu"""
-    
+    """Class that presents a text menu and coordinates high-level actions."""
+
     def __init__(self):
+        """Prepare a new Menu with default setup and highscore manager."""
         self.setup = GameSetup()
         self.highscore = HighScore()
         self.players = None
@@ -15,7 +16,7 @@ class Menu:
         self.running = True
 
     def print_menu(self):
-        """Print menu options"""
+        """Print the interactive menu options to the terminal."""
         print("""---------------------------------------
 | 1) Play game
 | 2) Setup ccustom game (make players and dice)
@@ -28,14 +29,16 @@ class Menu:
  ---------------------------------------""")
 
     def setup_game(self):
+        """Interactively create players and a dice hand for a new game."""
         print("\n--- Setting up game... ---")
         self.players = self.setup.create_players()
         for player in self.players:
             self.highscore.register(player.name)
         self.dice_hand = self.setup.create_dice_hand()
         print("--- Game setup complete. ---\n")
-    
+
     def setup_base_game(self):
+        """Create a simple single-player setup (used by the menu option)."""
         from .player import Player
         from .dice import Dice
         from .dicehand import DiceHand
@@ -48,6 +51,7 @@ class Menu:
             self.highscore.register(player.name)
 
     def change_names(self):
+        """Prompt to rename existing players and update highscores."""
         if not self.players:
             print("You have to create a player first vro 🌹💔...")
             return
@@ -62,6 +66,7 @@ class Menu:
         print("--- Name updated. ---")
 
     def show_highscores(self):
+        """Print a readable list of top high score entries."""
         print("--- Hightscores 🏆🏆 ---")
         scores = self.highscore.top(10)
         if not scores:
@@ -80,18 +85,21 @@ class Menu:
                 print(f"     recent scores: {recent}")
 
     def show_rules(self):
+        """Display the game rules text to the player."""
         print("\n--- Game rules ---")
         print(RULES_TEXT)
-    
+
     def play_game(self):
+        """Start a Game instance using the current players and dice hand."""
         if not self.players or not self.dice_hand:
             print("--- Setup the game first lil bro ---")
             return
         print("\n--- 🎮🕹️ starting game. vvvshhhh... ---")
         game = Game(self.players, self.dice_hand, highscore=self.highscore)
         game.play()
-    
+
     def run(self):
+        """Main menu loop: process user commands until the user quits."""
         self.print_menu()
         while self.running:
             choice = input("\nEnter your choice:\n>>> ").strip().lower()

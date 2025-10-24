@@ -1,3 +1,5 @@
+"""Game mechanics for Pig: turn-taking, win handling, and display helpers."""
+
 from typing import Optional
 
 from .highscore import HighScore
@@ -5,9 +7,19 @@ from .player import Player
 
 
 class Game:
+    """Represents a Pig game instance managing players and turns.
+
+    Attributes:
+        WINNING_SCORE: Score required to win the game.
+    """
+
     WINNING_SCORE = 100
 
     def __init__(self, players, dice_hand, highscore: Optional[HighScore] = None):
+        """Create a game with players and a DiceHand.
+
+        Raises ValueError if required parameters are missing.
+        """
         if not players:
             raise ValueError("Game requires at least one player.")
         if dice_hand is None:
@@ -19,17 +31,20 @@ class Game:
         self.game_over = False
 
     def current_player(self) -> Player:
-        """returns the current player object"""
+        """Return the current player object."""
         return self.players[self.current_player_index]
 
     def switch_turn(self):
-        """Swtich to the other players turn"""
+        """Advance to the next player's turn."""
         if not self.players:
             return
         self.current_player_index = (self.current_player_index + 1) % len(self.players)
 
     def take_turn(self):
-        """Single turn for the current player"""
+        """Execute a single turn for the current player.
+
+        Handles rolling, holding, special commands, and win checking.
+        """
         player = self.current_player()
         print(f"\n\n--->{player.name}'s turn!")
         if player.intelligence is None:
@@ -73,7 +88,7 @@ class Game:
             self.switch_turn()
 
     def play(self):
-        """main loop to play game"""
+        """Main game loop: repeatedly take turns until the game ends."""
         while not self.game_over:
             self.take_turn()
         
@@ -83,6 +98,7 @@ class Game:
         self._display_highscores()
 
     def _display_histogram(self):
+        """Print a simple roll distribution histogram based on recorded rolls."""
         freq = self.dice_hand.histogram.as_freq()
         if not freq:
             print("\nNo rolls recorded.")
@@ -95,6 +111,7 @@ class Game:
             print(f"{total:>2}: {share:.3f} {bar}")
 
     def _handle_win(self, player: Player) -> None:
+        """Handle end-of-game bookkeeping when a player wins."""
         print(f"{player.name} wins!!! They won with {player.total_score} points!")
         self.game_over = True
         if self.highscore:
@@ -106,6 +123,7 @@ class Game:
                 print(f"Could not save high score: {exc}")
 
     def _display_highscores(self, limit: int = 10) -> None:
+        """Print stored high score entries, up to `limit` items."""
         if not self.highscore:
             return
         try:
