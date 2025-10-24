@@ -61,4 +61,17 @@ class Game:
         """
         while not self.game_over:
             self.take_turn()
+        self._display_histogram()
+
+    def _display_histogram(self):
+        freq = self.dice_hand.histogram.as_freq()
+        if not freq:
+            print("\nNo rolls recorded.")
+            return
+
+        print("\nRoll distribution:")
+        for total in sorted(freq):
+            share = freq[total]
+            bar = "#" * max(1, int(share * 50))
+            print(f"{total:>2}: {share:.3f} {bar}")
             
