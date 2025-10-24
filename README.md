@@ -30,15 +30,17 @@ On Linux/Mac:
    ```
 
 ### __To run the game:__
-1. ```
-   cd src
    ```
-2. ```
-   python -m pig_game.main
+   python src/main.py
    ```
    or
    ```
-   python3 -m pig_game.main
+   python3 src/main.py
+   ```
+
+### __ To generate uml diagram:__
+   ```
+   pyreverse src/pig_game/*
    ```
 
 ReadTheDocs link:
