@@ -1,6 +1,6 @@
 
-from dice import Dice
-from utils.histogram import Histogram
+from .dice import Dice
+from .utils.histogram import Histogram
 
 
 class DiceHand:
