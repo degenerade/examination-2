@@ -6,12 +6,17 @@ class Main:
 
     @staticmethod
     def run():
-        setup = GameSetup()
-        players = setup.create_players()
-        dice_hand = setup.create_dice_hand()
+        try:
+            setup = GameSetup()
+            players = setup.create_players()
+            dice_hand = setup.create_dice_hand()
 
-        game = Game(players, dice_hand)
-        game.play()
+            game = Game(players, dice_hand)
+            game.play()
+        except (KeyboardInterrupt, EOFError):
+            print("\nGame interrupted. Thanks for playing!")
+        except (ValueError, TypeError) as exc:
+            print(f"\nConfiguration error: {exc}")
 
 
 if __name__ == "__main__":

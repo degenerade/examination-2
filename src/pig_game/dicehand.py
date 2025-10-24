@@ -11,7 +11,13 @@ class DiceHand:
         """Init with list of Dice or one default."""
         if dice_list is None:
             dice_list = [Dice()]
-        self.dice = dice_list
+        if not isinstance(dice_list, (list, tuple)):
+            raise TypeError("dice_list must be a sequence of Dice objects.")
+        self.dice = []
+        for die in dice_list:
+            if not isinstance(die, Dice):
+                raise TypeError("Every item in dice_list must be a Dice instance.")
+            self.dice.append(die)
         self.previous_roll = []
         self.history = []
         self.histogram = histogram or Histogram()
