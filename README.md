@@ -29,5 +29,17 @@ On Linux/Mac:
    python -m pip install -r requirements.txt
    ```
 
+### __To run the game:__
+1. ```
+   cd src
+   ```
+2. ```
+   python -m pig_game.main
+   ```
+   or
+   ```
+   python3 -m pig_game.main
+   ```
+
 ReadTheDocs link:
 https://examination-2.readthedocs.io/en/latest/
