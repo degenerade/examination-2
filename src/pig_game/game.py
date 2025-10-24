@@ -5,6 +5,10 @@ class Game:
     WINNING_SCORE = 100
 
     def __init__(self, players, dice_hand):
+        if not players:
+            raise ValueError("Game requires at least one player.")
+        if dice_hand is None:
+            raise ValueError("Game requires a dice hand.")
         self.players = players
         self.dice_hand = dice_hand
         self.current_player_index = 0
@@ -20,12 +24,18 @@ class Game:
 
     def switch_turn(self):
         """Swtich to the other players turn"""
-        self.current_player_index = 1 - self.current_player_index
+        if not self.players:
+            return
+        self.current_player_index = (self.current_player_index + 1) % len(self.players)
 
     def take_turn(self):
         """Single turn for the current player"""
         player = self.current_player()
         print(f"\n\n--->{player.name}'s turn!")
+        if player.intelligence is None:
+            raise ValueError(
+                f"Player {player.name} does not have a strategy assigned."
+            )
 
         while True:
             choice = player.intelligence.decide_action(player, self, self.dice_hand)
