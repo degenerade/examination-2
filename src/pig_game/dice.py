@@ -12,7 +12,6 @@ class Dice:
         random.seed()
         self.sides = sides
 
-
     def roll_die(self):
         """Roll the dice once and return the value"""
         roll = random.randint(1, self.sides)
