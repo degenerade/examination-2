@@ -1,30 +1,95 @@
-[
-  {
-    "name": "pc 2",
-    "score": 108
-  },
-  {
-    "name": "Bob",
-    "score": 105
-  },
-  {
-    "name": "pc",
-    "score": 105
-  },
-  {
-    "name": "Player 1",
-    "score": 104
-  },
-  {
-    "name": "pc2",
-    "score": 102
-  },
-  {
-    "name": "p2",
-    "score": 100
-  },
-  {
-    "name": "max",
-    "score": 0
-  }
-]
+{
+  "players": [
+    {
+      "display_name": "pc 2",
+      "aliases": [
+        "pc 2"
+      ],
+      "games_played": 1,
+      "wins": 1,
+      "scores": [
+        108
+      ],
+      "best_score": 108,
+      "total_score": 108
+    },
+    {
+      "display_name": "Bob",
+      "aliases": [
+        "bob"
+      ],
+      "games_played": 1,
+      "wins": 1,
+      "scores": [
+        105
+      ],
+      "best_score": 105,
+      "total_score": 105
+    },
+    {
+      "display_name": "pc",
+      "aliases": [
+        "pc"
+      ],
+      "games_played": 1,
+      "wins": 1,
+      "scores": [
+        105
+      ],
+      "best_score": 105,
+      "total_score": 105
+    },
+    {
+      "display_name": "Player 1",
+      "aliases": [
+        "player 1"
+      ],
+      "games_played": 1,
+      "wins": 1,
+      "scores": [
+        104
+      ],
+      "best_score": 104,
+      "total_score": 104
+    },
+    {
+      "display_name": "pc2",
+      "aliases": [
+        "pc2"
+      ],
+      "games_played": 1,
+      "wins": 1,
+      "scores": [
+        102
+      ],
+      "best_score": 102,
+      "total_score": 102
+    },
+    {
+      "display_name": "p2",
+      "aliases": [
+        "p2"
+      ],
+      "games_played": 1,
+      "wins": 1,
+      "scores": [
+        100
+      ],
+      "best_score": 100,
+      "total_score": 100
+    },
+    {
+      "display_name": "max",
+      "aliases": [
+        "max"
+      ],
+      "games_played": 1,
+      "wins": 1,
+      "scores": [
+        0
+      ],
+      "best_score": 0,
+      "total_score": 0
+    }
+  ]
+}

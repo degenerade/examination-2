@@ -2,6 +2,7 @@
 from .game import Game
 from .game_setup import GameSetup
 from .highscore import HighScore
+from .rules import RULES_TEXT
 
 class Menu:
     """class that will loop the menu"""
@@ -21,6 +22,7 @@ class Menu:
 | 3) Change player names
 | 4) Print highscores
 | 5) Setup base game (1 player)
+| 6) Show rules
 | m) Print menu
 | q) Quit
  ---------------------------------------""")
@@ -28,6 +30,8 @@ class Menu:
     def setup_game(self):
         print("\n--- Setting up game... ---")
         self.players = self.setup.create_players()
+        for player in self.players:
+            self.highscore.register(player.name)
         self.dice_hand = self.setup.create_dice_hand()
         print("--- Game setup complete. ---\n")
     
@@ -40,6 +44,8 @@ class Menu:
 
         self.players = [Player("Player 1", False, HumanIntelligence())]
         self.dice_hand = DiceHand([Dice(6)])
+        for player in self.players:
+            self.highscore.register(player.name)
 
     def change_names(self):
         if not self.players:
@@ -50,7 +56,9 @@ class Menu:
 (Or press enter to keep current)
 >>> """)
             if new_name.strip():
+                old_name = player.name
                 player.name = new_name.strip()
+                self.highscore.rename(old_name, player.name)
         print("--- Name updated. ---")
 
     def show_highscores(self):
@@ -59,18 +67,29 @@ class Menu:
         if not scores:
             print("No highscores recorded yet.")
         else:
-            for i, (name, score) in enumerate(scores, start=1):
-                print(f"{i:2d}. {name:15} {score} pts")
+            for i, entry in enumerate(scores, start=1):
+                games = entry["games_played"]
+                avg = entry["total_score"] / games if games else 0
+                recent = ", ".join(str(score) for score in entry["scores"][-3:][::-1]) or "-"
+                print(
+                    f"{i:2d}. {entry['display_name']:15} "
+                    f"best: {entry['best_score']:3d} | "
+                    f"wins: {entry['wins']:2d}/{games:2d} | "
+                    f"avg: {avg:5.1f}"
+                )
+                print(f"     recent scores: {recent}")
+
+    def show_rules(self):
+        print("\n--- Game rules ---")
+        print(RULES_TEXT)
     
     def play_game(self):
         if not self.players or not self.dice_hand:
             print("--- Setup the game first lil bro ---")
             return
         print("\n--- 🎮🕹️ starting game. vvvshhhh... ---")
-        game = Game(self.players, self.dice_hand)
+        game = Game(self.players, self.dice_hand, highscore=self.highscore)
         game.play()
-        winner = max(game.players, key=lambda p: p.total_score)
-        self.highscore.add(winner.name, winner.total_score)
     
     def run(self):
         self.print_menu()
@@ -86,6 +105,8 @@ class Menu:
                 self.show_highscores()
             elif choice == "5":
                 self.setup_base_game()
+            elif choice == "6":
+                self.show_rules()
             elif choice == "m":
                 self.print_menu()
             elif choice == "q":

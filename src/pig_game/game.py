@@ -97,12 +97,13 @@ class Game:
     def _handle_win(self, player: Player) -> None:
         print(f"{player.name} wins!!! They won with {player.total_score} points!")
         self.game_over = True
-        if not self.highscore:
-            return
-        try:
-            self.highscore.add(player.name, player.total_score)
-        except Exception as exc:
-            print(f"Could not save high score: {exc}")
+        if self.highscore:
+            try:
+                for contender in self.players:
+                    won = contender is player
+                    self.highscore.record_game(contender.name, contender.total_score, won=won)
+            except Exception as exc:
+                print(f"Could not save high score: {exc}")
 
     def _display_highscores(self, limit: int = 10) -> None:
         if not self.highscore:
@@ -116,5 +117,12 @@ class Game:
             return
 
         print("\nHigh Scores:")
-        for idx, (name, score) in enumerate(entries, start=1):
-            print(f"{idx:>2}. {name} - {score}")
+        for idx, entry in enumerate(entries, start=1):
+            games = entry["games_played"]
+            avg = entry["total_score"] / games if games else 0
+            print(
+                f"{idx:>2}. {entry['display_name']:15} "
+                f"best: {entry['best_score']:3d} | "
+                f"wins: {entry['wins']:2d}/{games:2d} | "
+                f"avg: {avg:5.1f}"
+            )
