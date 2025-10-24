@@ -21,13 +21,15 @@ class HighScore:
         try:
             with open(self.path, "r", encoding="utf-8") as fh:
                 data = json.load(fh)
-            #so, we expect list of [name, score] or objects; normalize
+            # so, we expect list of [name, score] or objects; normalize
             entries = []
             for item in data:
                 if isinstance(item, list) and len(item) == 2:
                     entries.append((str(item[0]), int(item[1])))
                 elif isinstance(item, dict):
-                    entries.append((str(item.get("name", "unknown")), int(item.get("score", 0))))
+                    entries.append(
+                        (str(item.get("name", "unknown")), int(item.get("score", 0)))
+                    )
             return entries
         except Exception:
             return []
@@ -40,12 +42,11 @@ class HighScore:
     def add(self, name: str, score: int) -> None:
         entries = self._read()
         entries.append((name, int(score)))
-        #descending
+        # descending
         entries.sort(key=lambda x: x[1], reverse=True)
-        #keep-top-50
+        # keep-top-50
         entries = entries[:50]
         self._write(entries)
 
     def top(self, n: int = 10):
         return self._read()[:n]
-    
