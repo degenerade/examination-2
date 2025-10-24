@@ -1,5 +1,6 @@
 from .game_setup import GameSetup
 from .game import Game
+from .highscore import HighScore
 
 
 class Main:
@@ -11,7 +12,8 @@ class Main:
             players = setup.create_players()
             dice_hand = setup.create_dice_hand()
 
-            game = Game(players, dice_hand)
+            highscore = HighScore()
+            game = Game(players, dice_hand, highscore=highscore)
             game.play()
         except (KeyboardInterrupt, EOFError):
             print("\nGame interrupted. Thanks for playing!")

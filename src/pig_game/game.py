@@ -1,16 +1,20 @@
+from typing import Optional
+
+from .highscore import HighScore
 from .player import Player
 
 
 class Game:
     WINNING_SCORE = 100
 
-    def __init__(self, players, dice_hand):
+    def __init__(self, players, dice_hand, highscore: Optional[HighScore] = None):
         if not players:
             raise ValueError("Game requires at least one player.")
         if dice_hand is None:
             raise ValueError("Game requires a dice hand.")
         self.players = players
         self.dice_hand = dice_hand
+        self.highscore = highscore
         self.current_player_index = 0
         self.game_over = False
 
@@ -60,8 +64,7 @@ class Game:
                 break
 
         if player.total_score >= self.WINNING_SCORE:
-            print(f"{player.name} wins!!! They won with {player.total_score} points!")
-            self.game_over = True
+            self._handle_win(player)
         else:
             self.switch_turn()
 
@@ -70,6 +73,7 @@ class Game:
         while not self.game_over:
             self.take_turn()
         self._display_histogram()
+        self._display_highscores()
 
     def _display_histogram(self):
         freq = self.dice_hand.histogram.as_freq()
@@ -82,4 +86,28 @@ class Game:
             share = freq[total]
             bar = "#" * max(1, int(share * 50))
             print(f"{total:>2}: {share:.3f} {bar}")
-            
+
+    def _handle_win(self, player: Player) -> None:
+        print(f"{player.name} wins!!! They won with {player.total_score} points!")
+        self.game_over = True
+        if not self.highscore:
+            return
+        try:
+            self.highscore.add(player.name, player.total_score)
+        except Exception as exc:
+            print(f"Could not save high score: {exc}")
+
+    def _display_highscores(self, limit: int = 10) -> None:
+        if not self.highscore:
+            return
+        try:
+            entries = self.highscore.top(limit)
+        except Exception as exc:
+            print(f"\nCould not read high scores: {exc}")
+            return
+        if not entries:
+            return
+
+        print("\nHigh Scores:")
+        for idx, (name, score) in enumerate(entries, start=1):
+            print(f"{idx:>2}. {name} - {score}")
